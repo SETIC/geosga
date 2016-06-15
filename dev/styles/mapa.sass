@@ -1,0 +1,47 @@
+@import "colors";
+
+#geo
+  margin: 0;
+
+  img.logo
+    width: 50px;
+    margin-top: -8px;
+    margin-left: 15px;
+
+  .header
+    height: 70px;
+    padding: 10px 10px 15px 10px;
+    background-color: $vermelho_sga_primary;
+    border-bottom: 5px solid $azul_sga_primary;
+    z-index: 1000;
+
+  div#mapa
+    position: absolute;
+    height: calc(100% - 70px);
+    width: 100%;
+
+  #modal-obra
+    .modal-content
+      width: 780px;
+    .modal-header
+      background-color: $vermelho_sga_dark;
+      color: white;
+
+    .modal-body
+      .overlay-scroll
+          max-height: 250px;
+          overflow: overlay;
+          margin-bottom: 10px;
+      .rua
+
+      .descricao,
+      .detalhes
+        text-align: justify;
+
+      .imagem
+        width: 280px;
+        overflow: hidden;
+        height: 210px;
+
+        img
+            width: 100%;

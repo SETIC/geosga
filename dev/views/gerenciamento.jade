@@ -1,0 +1,31 @@
+div.content#gerenciamento
+    section.content-header
+        h1 Gerenciamento #[small visualizar, editar e excluir obras.]
+
+    section.content
+        div.row
+            div.col-md-12
+                table.table.table-hover
+                    tr
+                        th Titulo
+                        th Descrição
+                        th Tipo
+                        th Categoria
+                        th Status
+                        th(colspan="1") Operações
+                    tr(ng-repeat="marcador in marcadores")
+                        td {{marcador.obra.titulo}}
+                        td {{marcador.obra.descricao}}
+                        td {{marcador.obra.tipo.denominacao}}
+                        td {{marcador.obra.categoria.denominacao}}
+                        td {{marcador.obra.status.denominacao}}
+                            //- select(ng-model="marcador.obra.status.id").form-control
+                            //-     option(ng-repeat="status in statusList", value="{{status.id}}", ng-selected="status.id == marcador.obra.status.id") {{status.denominacao}}
+                        //- td(ng-click="editar(marcador)")
+                        //-     a(href="")
+                        //-         i.fa.fa-pencil-square-o
+                        td(ng-click="deletarMarcador(marcador.id)")
+                            a(href="")
+                                i.fa.fa-trash
+
+div(ng-include="'dist/includes/modalEditar.html'")

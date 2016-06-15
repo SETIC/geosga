@@ -1,0 +1,61 @@
+div(tabindex="-1", role="dialog").modal.fade#modal-cadastrar
+    div.modal-dialog
+        div.modal-content
+            div.modal-header
+                button(type="button", data-dismiss="modal", aria-label="Close").close
+                    span(aria-hidden="true") &times;
+                h4.modal-title Cadastrar obra
+
+            div.modal-body
+                form.row
+                    div.form-group.col-md-12
+                        label Titulo
+                        input(ng-model="marcador.obra.titulo").form-control
+
+                    div.form-group.col-md-6
+                        label Descrição
+                        textarea(ng-model="marcador.obra.descricao").form-control
+
+                    div.form-group.col-md-6
+                        label Detalhes
+                        textarea(ng-model="marcador.obra.detalhes").form-control
+
+                    div.form-group.col-md-6
+                        label Meta fisica
+                        input(ng-model="marcador.obra.metaFisica", ui-money-mask="2").form-control
+                    
+                    div.form-group.col-md-6
+                        label Custo estimado
+                        input(ng-model="marcador.obra.custoEstimado").form-control
+                    
+                    div.form-group.col-md-6
+                        label Rua
+                        input(ng-model="marcador.obra.rua").form-control
+
+                    div.form-group.col-md-6
+                        label Bairro
+                        input(ng-model="marcador.obra.bairro.nome").form-control
+
+                    div.col-md-6.form-group
+                        label Tipo {{marcador.obra.tipo.id}}
+                        select(ng-model="marcador.obra.tipo.id", ng-change="listarCategoriasPorTipo(marcador.obra.tipo.id)").form-control
+                            option(ng-repeat="tipo in tipos", value="{{tipo.id}}") {{tipo.denominacao}}
+
+                    div.col-md-6.form-group
+                        label Categoria
+                        select(ng-model="marcador.obra.categoria.id").form-control
+                            option(ng-repeat="categoria in categorias", value="{{categoria.id}}") {{categoria.denominacao}}
+                    
+                    div.col-md-12.form-group
+                        label Status
+                        select(ng-model="marcador.obra.status.id").form-control
+                            option(value="1") Previsto
+                            option(value="2") Andamento
+                            option(value="3") Concluída
+                            
+                    div.col-md-12.form-group
+                        label Imagens
+                        input(type="file", file-model="myFile").form-control
+
+            div.modal-footer
+                button(type="button", ng-click="cadastrarMarcador(marcador)").btn.btn-primary Salvar obra

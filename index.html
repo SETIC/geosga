@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+        <link rel="stylesheet" href="dist/theme/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="dist/theme/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="dist/theme/css/skins/skin-blue.min.css">
+
+        <link rel="stylesheet" href="dist/css/styles.css">
+
+        <title>Geo Gonçalo</title>
+    </head>
+
+    <body class="hold-transition skin-blue sidebar-mini" ng-app="app.gerenciador">
+        <div class="wrapper">
+            <header class="main-header">
+
+                <a href="index2.html" class="logo">
+                    <span class="logo-mini">
+                        <img src="dist/img/brasao_sga.png" alt="">
+                    </span>
+                    <span class="logo-lg">GEO SGA</span>
+                </a>
+
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+
+                    <div class="navbar-custom-menu" ng-controller="menu.top.ctrl">
+                        <ul class="nav navbar-nav">
+
+                            <li class="dropdown user user-menu">
+
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="dist/img/user_icon.png" class="user-image" alt="User Image">
+                                    <span class="hidden-xs">{{credencial.funcionario.nome}} {{credencial.funcionario.sobrenome}}</span>
+                                </a>
+
+                                <!-- <ul class="dropdown-menu">
+                                    <li class="user-header">
+
+                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        <p>
+                                            Clayton Fidelis
+                                            <small>Cargo, Setor</small>
+                                        </p>
+                                    </li>
+
+
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Configurações</a>
+                                        </div>
+
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-default btn-flat">Sair</a>
+                                        </div>
+                                    </li>
+
+                                </ul> -->
+                            </li>
+
+                            <li>
+                              <a href="login.html#?logout=true"><i class="fa fa-sign-out"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+
+            <aside class="main-sidebar" ng-controller="menu.ctrl">
+                <section class="sidebar">
+                    <ul class="sidebar-menu">
+                        <!-- <li class="header">Geo Gonçalo</li> -->
+                        <li class="" ng-repeat="item in itens">
+                            <a ng-href="{{item.link}}">
+                                <i class="{{item.icone}}"></i> <span>{{item.nome}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+
+
+            <div class="content-wrapper">
+                <div ng-view></div>
+
+            </div>
+
+            <footer class="main-footer">
+
+                <div class="pull-right hidden-xs">
+                    <a href="http://www.saogoncalo.rn.gov.br" target="blank">
+                        <img class="footer-logo" src="dist/img/brasao_sga.png" alt="">
+                    </a>
+                </div>
+
+                <strong>Copyright &copy; 2015 <a href="http://www.saogoncalo.rn.gov.br" target="blank">São Gonçalo do Amarante</a>.</strong>
+            </footer>
+        </div>
+
+
+        <script src="dist/theme/js/vendor/jquery.min.js"></script>
+        <script src="dist/theme/js/vendor/bootstrap.min.js"></script>
+        <script src="dist/theme/js/vendor/app.min.js"></script>
+        <script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js"></script>
+
+        <script src="dist/js/vendor.min.js"></script>
+        <script src="dist/js/app.min.js"></script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOjRrczUuL1IVxSJnrEnnezN_i1LsBTdY">
+        </script>
+    </body>
+</html>
