@@ -18,7 +18,8 @@ public class Hibernate{
 	private static Hibernate hibernate;
 	private SessionFactory sessionFactory;
 	private Configuration configuration;
-
+	private Session session;
+	
 	public Hibernate() {
 		setSession();
 	}
@@ -29,11 +30,12 @@ public class Hibernate{
 			try {
 				configuration = new Configuration()
 						.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")
+						.setProperty("hibernate.connection.release_mode property", "auto")
 						.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
 						.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/db_sao_goncalo")
 						.setProperty("hibernate.connection.username", "postgres")
 						.setProperty("hibernate.connection.password", "123456")				 
-						.setProperty("hibernate.show_sql", "false")
+						.setProperty("hibernate.show_sql", "true")
 						.setProperty("hibernate.format_sql", "true")
 						.setProperty("hibernate.c3p0.acquire_increment", "1")
 						.setProperty("hibernate.c3p0.idle_test_period", "100")
@@ -56,7 +58,7 @@ public class Hibernate{
 
 				sessionFactory = configuration.buildSessionFactory();
 			} catch (Throwable ex) {
-				System.err.println("Houve um erro na criação da sessão hibernate. Erro: " + ex);
+				System.err.println("Houve um erro na criaï¿½ï¿½o da sessï¿½o hibernate. Erro: " + ex);
 				throw new ExceptionInInitializerError(ex);
 			}
 		}
@@ -64,11 +66,14 @@ public class Hibernate{
 	
 	public Session getSession() {
 		setSession();
-		Session toReturn = sessionFactory.openSession();
-		return toReturn;
+		if(session == null){
+			session = sessionFactory.openSession();
+		}
+		
+		return session;
 	}
 
-	public static Hibernate getInstance() {
+	public static synchronized Hibernate getInstance() {
 		if (hibernate == null) {
 			hibernate = new Hibernate();
 		}

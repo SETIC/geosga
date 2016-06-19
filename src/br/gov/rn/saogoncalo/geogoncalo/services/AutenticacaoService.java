@@ -29,8 +29,6 @@ public class AutenticacaoService {
 		if(session.getAttribute("login") != null)
 			credencial = credencialDAO.selecionarPorLogin(session.getAttribute("login").toString());
 		
-		System.out.println(credencial);
-		
 		if(credencial != null){
 			return Response.ok().entity(credencial).build();
 		}
@@ -47,11 +45,9 @@ public class AutenticacaoService {
 		
 		HttpSession session = req.getSession(true);
 		
-		System.out.println(credencialDAO.autenticar(credencial));
-		
 		if(credencialDAO.autenticar(credencial)){
 			session.setAttribute("login", credencial.getLogin());
-			return Response.ok().entity(credencial).build();
+			return Response.ok().entity(credencialDAO.selecionarPorLogin(credencial.getLogin())).build();
 		} else {
 			return Response.status(401).build();
 		}
@@ -62,7 +58,6 @@ public class AutenticacaoService {
 	@Produces("application/json")
 	public Response logout(@Context HttpServletRequest req){
 		HttpSession session = req.getSession(true);
-		System.out.println("AE");
 		session.invalidate();
 		
 		return Response.ok().build();

@@ -14,6 +14,23 @@
             }, null);
         };
 
+        $scope.listarRelacionados = function(obraId, categoriaId){
+            ApiService.listarObrasRelacionadas(obraId, categoriaId)
+            .then(function(res){
+                $scope.relacionados = res.data;
+                console.log($scope.relacionados);
+            });
+        };
+
+        $scope.exibirObra = function(obraId){
+            ApiService.selecionarObra(obraId)
+            .then(function(res){
+                $scope.marcador = {};
+                $scope.marcador.obra = res.data;
+                $scope.listarRelacionados(obraId, $scope.marcador.obra.categoria.id);
+            })
+        }
+
         $scope.initMap = function(){
             map = new google.maps.Map(document.getElementById('mapa'), {
                 center: {lat: -5.7968718, lng: -35.4148505},
@@ -37,7 +54,7 @@
                 (function(marker, i) {
     	           	google.maps.event.addListener(marker, 'mousedown', function() {
                         $scope.marcador = markers[i];
-                        console.log($scope.marcador);
+                        $scope.listarRelacionados(markers[i].obra.id, markers[i].obra.categoria.id);
                         $("#modal-obra").modal("show");
 
 		                map.panTo({lat: parseFloat(markers[i].latitude), lng: parseFloat(markers[i].longitude)});

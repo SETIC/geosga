@@ -13,6 +13,7 @@ public class StringUtil {
         } catch (NoSuchAlgorithmException e) {  
             e.printStackTrace();  
         }  
+        
         BigInteger hash = new BigInteger(1, md.digest(string.getBytes()));  
         sen = hash.toString(16);              
         return sen;  

@@ -1,24 +1,19 @@
 (function(){
     "use strict";
 
-    angular.module("app.gerenciador").controller("cadastro.ctrl", ['$scope', 'api.service', '$compile', 'api.autenticacao.service', '$window', 'Constants', CadastroController]);
+    angular.module("app.gerenciador").controller("cadastro.ctrl", CadastroController);
 
-    function CadastroController($scope, ApiService, $compile, AutenticacaoService, $window, Constants){
+    function CadastroController($scope, ApiService, $compile, AutenticacaoService, $window, Constants, $timeout){
         var map, marker, geocoder, infowindow;
 
         $scope.marcador = {};
         $scope.marcador.obra = {};
 
-        // AutenticacaoService.autenticar()
-        // .then(function(res){
-        //     $scope.credencial = res.data;
-        // }, function(err){
-        //     if(err.status == 401)
-        //         $window.location.href = Constants.url + '/login.html';
-        // });
-
         $scope.cadastrarMarcador = function(marcador){
             var file = $scope.myFile;
+            $scope.$emit('LOAD');
+
+            console.log(file);
 
             ApiService.cadastrarMarcador(marcador)
             .then(function(res){
@@ -27,11 +22,25 @@
                 if(!!file){
                     ApiService.uploadImagem(file, res.data.obra.id)
                     .then(function(res){
-                        console.log(res);
-                    }, null);
+                        $scope.myfile = {};
+
+                        $scope.$emit('UNLOAD');
+
+                        $timeout(function(){
+                            $.notify({message: "Obra cadastrada com sucesso!"}, {type: "success"});
+                            $("#modal-cadastrar").modal("hide");
+                        }, 500);
+
+                    }, function(error){
+                        $.notify({message: "Obra cadastrada com sucesso porém ocorreu um erro ao enviar a(s) imagens."}, {type: "warning"});
+                        $scope.$emit('UNLOAD');
+                    });
                 }
 
-            }, null);
+            }, function(error){
+                $.notify({message: "Ocorreu um erro ao cadastrar a obra, tente novamente. Se o erro persistir, contact o administrador do sistema."}, {type: "warning"});
+                $scope.$emit('UNLOAD');
+            });
         };
 
         $scope.listarTipos = function(){
@@ -43,7 +52,6 @@
 
         $scope.setCategorias = function(categorias){
             $scope.categorias = angular.copy(categorias);
-            console.log($scope.categorias);
         };
 
         $scope.listarCategoriasPorTipo = function(tipoId){
@@ -95,7 +103,6 @@
                                       '<button class="btn btn-primary" ng-click="modalCadastro()">Cadastrar obra</button></div>';
 
                         var compiled = $compile(content)($scope);
-                        console.log(compiled);
 
                         infowindow = new google.maps.InfoWindow({
                             content: compiled[0]
@@ -104,12 +111,11 @@
                         infowindow.open(map, marker);
                     }
                 });
-
-                // $scope.$apply();
-                // $scope.modalCadastro();
             });
         }();
 
         $scope.listarTipos();
     }
+
+    CadastroController.$inject = ['$scope', 'api.service', '$compile', 'api.autenticacao.service', '$window', 'Constants', '$timeout'];
 })();

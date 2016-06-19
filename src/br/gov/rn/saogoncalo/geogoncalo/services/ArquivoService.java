@@ -26,8 +26,8 @@ import br.gov.rn.saogoncalo.geogoncalo.dao.ImagemDAO;
 @Path("")
 public class ArquivoService {
 	
-	private final String UPLOADED_FILE_PATH = "D:\\clayton/apache-tomcat-7.0.64/webapps/geo_goncalo/uploads/";
-//	private final String UPLOADED_FILE_PATH = "F:\\dev/apache-tomcat-7.0.67/webapps/geo_goncalo/uploads/";
+//	private final String UPLOADED_FILE_PATH = "F:\\clayton/apache-tomcat-7.0.64/webapps/geo_goncalo/uploads/";
+	private final String UPLOADED_FILE_PATH = "F:\\dev/apache-tomcat-7.0.67/webapps/geo_goncalo2/uploads/";
 //	private final String UPLOADED_FILE_PATH = "/home/tomcat/webapps/portal_transito/ROOT/uploads/";
 	
 	@POST
@@ -48,6 +48,7 @@ public class ArquivoService {
 		List<InputPart> arquivoId = uploadForm.get("obraId");
 		
 		for (InputPart inputPart : inputParts) {
+			
 			try {
 				MultivaluedMap<String, String> header = inputPart.getHeaders();
 				fileName = getFileName(header);
@@ -59,8 +60,6 @@ public class ArquivoService {
 				Imagem imagem = new Imagem();
 				imagem.setNome(fileName);
 				imagem.setObra(obra);
-				
-				System.out.println(imagem);
 				
 				if(writeFile(bytes, UPLOADED_FILE_PATH + fileName)){
 					imagemDAO.inserirImagem(imagem);

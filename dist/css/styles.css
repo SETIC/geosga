@@ -41,6 +41,20 @@
 
 #geo {
   margin: 0; }
+  #geo a.thumbnail.relacionado {
+    margin-bottom: 0px;
+    max-height: 110px;
+    overflow: hidden;
+    padding: 0; }
+    #geo a.thumbnail.relacionado img {
+      width: 100%;
+      height: 100%; }
+  #geo span.thumbnail-titulo {
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   #geo img.logo {
     width: 50px;
     margin-top: -8px;
@@ -50,7 +64,8 @@
     padding: 10px 10px 15px 10px;
     background-color: #a90926;
     border-bottom: 5px solid #00a6e2;
-    z-index: 1000; }
+    z-index: 1000;
+    margin-right: 0; }
   #geo div#mapa {
     position: absolute;
     height: calc(100% - 70px);
@@ -91,3 +106,6 @@
 img.footer-logo {
   margin-top: -10px;
   width: 37px; }
+
+footer {
+  margin-top: -20px; }

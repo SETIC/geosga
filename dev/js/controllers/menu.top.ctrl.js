@@ -1,12 +1,13 @@
 (function(){
     "use strict";
 
-    angular.module("app.gerenciador").controller("menu.top.ctrl", ['$scope', 'api.autenticacao.service', MenuTopController]);
+    angular.module("app.gerenciador").controller("menu.top.ctrl",  MenuTopController);
 
-    function MenuTopController($scope, AutenticacaoService){
-        // AutenticacaoService.autenticar()
-        // .then(function(res){
-        //     $scope.credencial = res.data;
-        // }, null);
+    function MenuTopController($scope, $route, $timeout, $cookies, $compile){
+        if(!!$cookies.getObject("credencial")){
+            $scope.credencial = $cookies.getObject("credencial");
+        }
     }
+
+    MenuTopController.$inject = ['$scope', '$route', '$timeout', '$cookies', '$compile'];
 })();

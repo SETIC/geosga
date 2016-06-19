@@ -5,24 +5,27 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import br.gov.rn.saoconcalo.geogoncalo.models.Status;
 import br.gov.rn.saogoncalo.geogoncalo.config.Hibernate;
 
 public class StatusDAO {
-	protected static Session getHibernateSession(){
+	protected Session getHibernateSession(){
 		return Hibernate.getInstance().getSession();
 	}
 	
+	private Session session = getHibernateSession();
+	
 	public List<Status> listarStatus(){
 		List<Status> status = new ArrayList<Status>();
-		Session session = getHibernateSession();
 		
 		try{
 			Query query = session.createQuery("FROM Status");
 			status = query.list();
 		} catch(Exception e){
 			e.printStackTrace();
+			session.flush();
 			return null;
 		}
 		

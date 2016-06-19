@@ -22,7 +22,7 @@ public class Credencial {
 	@Column(name="login")
 	private String login;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@Column(name="senha")
 	private String senha;
 	

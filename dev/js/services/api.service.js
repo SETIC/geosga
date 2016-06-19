@@ -53,12 +53,24 @@
 
         // --- Fim api tipo --- //
 
+        this.selecionarObra = function(id){
+            return $http.get(Constants.url + 'rest/obra/' + id);
+        };
+
         this.listarObras = function(){
             return $http.get(Constants.url + 'rest/obras');
         };
 
         this.atualizarObra = function(obra){
-            return $http.put(Constants.url + 'teste/' + obra.id, obra);
+            return $http.put(Constants.url + 'rest/obra/' + obra.id, obra);
+        };
+
+        this.atualizarStatusObra = function(obraId, statusId){
+            return $http.put(Constants.url + 'rest/obra/' + obraId + '/status/' + statusId);
+        };
+
+        this.listarObrasRelacionadas = function(obraId, categoriaId){
+            return $http.get(Constants.url + 'rest/obra/' + obraId + '/categoria/' + categoriaId + '/relacionados');
         };
 
         // --- Inicio api status --- //

@@ -7,7 +7,8 @@ var gulp = require('gulp'),
     jade = require('gulp-jade'),
     sass = require('gulp-sass'),
     es = require('event-stream'),
-    webserver = require('gulp-webserver');
+    webserver = require('gulp-webserver'),
+    sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('clean-views', function(){
     return es.merge([
@@ -29,12 +30,13 @@ gulp.task('clean-css', function(){
 gulp.task('move-js', ['clean-js'], function(){
     return es.merge([
         gulp.src('dev/js/**/*.js')
-            .pipe(jshint())
-            .pipe(jshint.reporter(stylish))
-            .pipe(uglify())
-            .pipe(concat('app.min.js')),
+            .pipe(sourcemaps.init())
+                .pipe(uglify())
+                .pipe(concat('app.min.js'))
+            .pipe(sourcemaps.write('.')),
 
         gulp.src(['bower_components/angular/angular.min.js',
+                  'bower_components/angular-cookies/angular-cookies.min.js',
                   'bower_components/angular-locale/angular-locale_pt-br.js',
                   'bower_components/angular-route/angular-route.min.js',
                   'bower_components/angular-file-model/angular-file-model.js',
@@ -42,17 +44,27 @@ gulp.task('move-js', ['clean-js'], function(){
                   'bower_components/angular-input-masks/angular-input-masks.min.js',
                   'bower_components/angular-input-masks/angular-input-masks.br.min.js'
               ])
-            .pipe(concat('vendor.min.js'))
+            .pipe(concat('vendor.min.js')),
+
+        gulp.src([
+                  'bower_components/remarkable-bootstrap-notify/bootstrap-notify.min.js'
+                ])
+            .pipe(concat('jquery-plugins.js'))
     ])
     .pipe(gulp.dest('dist/js'));
 });
 
 
 gulp.task('sass', ['clean-css'], function(){
-    return gulp.src('dev/styles/**/*.sass')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(concat('styles.css'))
-        .pipe(gulp.dest('dist/css'));
+    return es.merge([
+            gulp.src('dev/styles/**/*.sass')
+                .pipe(sass().on('error', sass.logError))
+                .pipe(concat('styles.css')),
+
+            gulp.src(['bower_components/animate.css/animate.min.css'])
+                .pipe(concat('vendor-styles.css'))
+            ])
+            .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('jade', ['clean-views'], function(){

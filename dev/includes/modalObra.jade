@@ -22,9 +22,9 @@ div(tabindex="-1", role="dialog").modal.fade#modal-obra
                             div.custo-estimado <strong> Custo estimado: </strong> {{marcador.obra.custoEstimado | currency:R$ :2}}
                     div.col-md-5
                         div.imagem
-                            img(ng-src="{{marcador.obra.imagens[0].nome ? 'uploads/marcador.obra.imagens[0].nome' : 'dist/img/indisponivel.png'}}")
-            //- div.modal-footer
-            //-     div.col-xs-3.col-md-3
-            //-         a.thumbnail.relacionado
-            //-             img
-            //-         <span class="thumbnail-titulo">Manutenção viária do municí...</span>
+                            img(ng-src="{{marcador.obra.imagens[0].nome != null ? 'uploads/' + marcador.obra.imagens[0].nome : 'dist/img/indisponivel.png'}}")
+            div.modal-footer
+                div(ng-repeat="obra in relacionados", ng-click="exibirObra(obra.id)").col-xs-3.col-md-3
+                    a(href="").thumbnail.relacionado
+                        img(ng-src="{{obra.imagens[0].nome != null ? 'uploads/' + obra.imagens[0].nome : 'dist/img/indisponivel.png'}}")
+                    span.thumbnail-titulo {{obra.titulo}}

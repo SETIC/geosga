@@ -1,5 +1,6 @@
 package br.gov.rn.saoconcalo.geogoncalo.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class Marcador {
 	@Column(name="longitude")
 	private String longitude;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Obra obra;
 	
 	public Long getId() {

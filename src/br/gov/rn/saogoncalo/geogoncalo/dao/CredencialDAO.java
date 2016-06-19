@@ -2,6 +2,7 @@ package br.gov.rn.saogoncalo.geogoncalo.dao;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import br.gov.rn.saoconcalo.geogoncalo.models.Credencial;
 import br.gov.rn.saogoncalo.geogoncalo.config.Hibernate;
@@ -12,11 +13,9 @@ public class CredencialDAO {
 		return Hibernate.getInstance().getSession();
 	}
 	
-	Session session = null;
+	private Session session = getHibernateSession();;
 	
-	public Credencial inserir(Credencial credencial){
-		session = getHibernateSession();
-		
+	public Credencial inserir(Credencial credencial){		
 		try{
 			credencial.setSenha(StringUtil.md5(credencial.getSenha()));
 			credencial.setId((Long) session.save(credencial));
@@ -24,16 +23,13 @@ public class CredencialDAO {
 		} catch(Exception e){
 			e.printStackTrace();
 			session.beginTransaction().rollback();
+			session.flush();
 			return null;
 		}
-		
-		session.close();
 		return credencial;
 	}
 	
-	public boolean autenticar(Credencial credencial){
-		session = getHibernateSession();
-		
+	public boolean autenticar(Credencial credencial){		
 		try{
 			Query query = session.createQuery("FROM Credencial c WHERE c.login = :login AND c.senha = :senha");
 			
@@ -42,33 +38,28 @@ public class CredencialDAO {
 			
 			Credencial _credencial = (Credencial) query.uniqueResult();
 			
-			System.out.println(_credencial);
-			
 			if(_credencial != null)
 				return true;
 		} catch(Exception e){
 			e.printStackTrace();
+			session.flush();
 			return false;
 		}
-		
-		session.close();
+
 		return false;
 	}
 	
 	public Credencial selecionarPorLogin(String login){
-		session = getHibernateSession();
-		
 		try{
 			Query query = session.createQuery("FROM Credencial c WHERE c.login = :login");
 			query.setParameter("login", login);
 			
 			Credencial credencial = (Credencial) query.uniqueResult();
-			
-			session.close();
+
 			return credencial;
 		} catch(Exception e){
 			e.printStackTrace();
-			session.close();
+			session.flush();
 			return null;
 		}
 	}

@@ -23,6 +23,23 @@ public class ObraService {
 		return Response.ok().entity(obraDAO.listarObras()).build();
 	}
 	
+	@GET
+	@Path("/obra/{id}")
+	@Produces("application/json")
+	public Response selecionarObra(@PathParam("id") Long id){
+		ObraDAO obraDAO = new ObraDAO();
+		
+		return Response.ok().entity(obraDAO.selecionarObra(id)).build();
+	}
+	
+	@GET
+	@Path("/obra/{id}/categoria/{categoriaId}/relacionados")
+	@Produces("application/json")
+	public Response listarRelacionados(@PathParam("id") Long id, @PathParam("categoriaId") Long categoriaId){
+		ObraDAO obraDAO = new ObraDAO();
+		return Response.ok().entity(obraDAO.listarObrasRelacionadas(id, categoriaId)).build();
+	}
+	
 	@DELETE
 	@Path("/obra/{id}")
 	@Produces("application/json")
@@ -38,9 +55,18 @@ public class ObraService {
 	@Consumes("application/json")
 	public Response atualizarObra(@PathParam("id") Long id, Obra obra){
 		ObraDAO obraDAO = new ObraDAO();
-		System.out.println(obra);
+
 		obraDAO.atualizarObra(obra);
 		
 		return Response.ok().build();
+	}
+	
+	@PUT
+	@Path("/obra/{id}/status/{status_id}")
+	@Consumes("application/json")
+	public Response atualizarStatusObra(@PathParam("id") Long id, @PathParam("status_id") Integer statusId){
+		ObraDAO obraDAO = new ObraDAO();
+		
+		return Response.ok().entity(obraDAO.atualizarStatusObra(id, statusId)).build();
 	}
 }

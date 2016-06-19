@@ -3,8 +3,7 @@
 
     angular.module("app.gerenciador").controller("menu.ctrl", ['$scope', MenuController]);
 
-    function MenuController($scope){
-        console.log($scope);
+    function MenuController($scope){        
         $scope.itens = [
             {
                 link: '#/',
