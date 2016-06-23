@@ -3,7 +3,7 @@
 
     angular.module("app.gerenciador").controller("cadastro.ctrl", CadastroController);
 
-    function CadastroController($scope, ApiService, $compile, AutenticacaoService, $window, Constants, $timeout){
+    function CadastroController($scope, ApiService, $compile, AutenticacaoService, $window, Constants, $timeout, $location){
         var map, marker, geocoder, infowindow;
 
         $scope.marcador = {};
@@ -12,8 +12,6 @@
         $scope.cadastrarMarcador = function(marcador){
             var file = $scope.myFile;
             $scope.$emit('LOAD');
-
-            console.log(file);
 
             ApiService.cadastrarMarcador(marcador)
             .then(function(res){
@@ -24,12 +22,14 @@
                     .then(function(res){
                         $scope.myfile = {};
 
+                        marker.setMap(null);
+
                         $scope.$emit('UNLOAD');
 
                         $timeout(function(){
                             $.notify({message: "Obra cadastrada com sucesso!"}, {type: "success"});
                             $("#modal-cadastrar").modal("hide");
-                        }, 500);
+                        }, 600);
 
                     }, function(error){
                         $.notify({message: "Obra cadastrada com sucesso porém ocorreu um erro ao enviar a(s) imagens."}, {type: "warning"});
@@ -85,6 +85,9 @@
             });
 
             google.maps.event.addListener(map,"click", function (event) {
+                marker.setMap(map);
+                $scope.marcador = {};
+                $scope.marcador.obra = {};
                 $scope.marcador.latitude = event.latLng.lat();
                 $scope.marcador.longitude = event.latLng.lng();
 
@@ -92,6 +95,8 @@
 
                 map.panTo(latlng);
                 marker.setPosition(latlng);
+
+                console.log("teste");
 
                 geocoder.geocode({'location': latlng}, function(results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
@@ -104,9 +109,13 @@
 
                         var compiled = $compile(content)($scope);
 
-                        infowindow = new google.maps.InfoWindow({
-                            content: compiled[0]
-                        });
+                        if(!!!infowindow){
+                            infowindow = new google.maps.InfoWindow({
+                                content: compiled[0]
+                            });
+                        } else {
+                            infowindow.setContent(compiled[0]);
+                        }
 
                         infowindow.open(map, marker);
                     }
@@ -117,5 +126,5 @@
         $scope.listarTipos();
     }
 
-    CadastroController.$inject = ['$scope', 'api.service', '$compile', 'api.autenticacao.service', '$window', 'Constants', '$timeout'];
+    CadastroController.$inject = ['$scope', 'api.service', '$compile', 'api.autenticacao.service', '$window', 'Constants', '$timeout', '$location'];
 })();

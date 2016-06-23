@@ -4,6 +4,7 @@
     angular.module("app.gerenciador").controller("gerenciamento.ctrl", ['$scope', 'api.service', '$route', GerenciamentoController]);
 
     function GerenciamentoController($scope, ApiService, $routes){
+        $scope.$emit('UNLOAD');
         $scope.listarMarcadores = function(){
             $scope.$emit('LOAD');
 
