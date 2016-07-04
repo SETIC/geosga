@@ -13,6 +13,64 @@
         <img class="logo" src="dist/img/brasao_sga.png" alt="">
     </div>
 
+    <!-- <div class="filtros col-md-4">
+        <div class="row">
+            <div class="accordion" id="accordion2">
+                <div class="row">
+                    <button class="btn btn-block btn-primary" type="button" name="button" ng-click="filtrarMarcadores()">Filtrar</button>
+                </div>
+                <div class="accordion-group row">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#obras">
+                            Obras
+                        </a>
+                    </div>
+                    <div id="obras" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <div class="col-md-6" ng-repeat="obra in obras">
+                                <input type="checkbox" name="name" value="" data-checklist-model="filtros" data-checklist-value="obra.id" id="obra{{obra.id}}" ng-click="adicionarCategoriaAoFiltro(obra)">
+                                <label for="obra{{obra.id}}">{{obra.denominacao}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-group row">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#equipamentos">
+                            Equipamentos
+                        </a>
+                    </div>
+                    <div id="equipamentos" class="accordion-body" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <div class="col-md-6" ng-repeat="equipamento in equipamentos">
+                                <input type="checkbox" name="name" value="" id="equipamento{{equipamento.id}}" data-checklist-model="filtros" data-checklist-value="equipamento.id" ng-click="adicionarCategoriaAoFiltro(equipamento)">
+                                <label for="equipamento{{equipamento.id}}">{{equipamento.denominacao}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-group row">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#servicos">
+                            Serviços
+                        </a>
+                    </div>
+                    <div id="servicos" class="accordion-body collapse" style="height: 0px;">
+                        <div class="accordion-inner">
+                            <div class="col-md-6" ng-repeat="servico in servicos">
+                                <input type="checkbox" name="name" value="" id="servico{{servico.id}}" data-checklist-model="filtros" data-checklist-value="servico.id" ng-click="adicionarCategoriaAoFiltro(servico)">
+                                <label for="servico{{servico.id}}">{{servico.denominacao}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+
     <div id="mapa"></div>
 
     <div ng-include="'dist/includes/modalObra.html'"></div>

@@ -42,7 +42,8 @@ gulp.task('move-js', ['clean-js'], function(){
                   'bower_components/angular-file-model/angular-file-model.js',
                   'bower_components/angular-input-masks/angular-input-masks-standalone.min.js',
                   'bower_components/angular-input-masks/angular-input-masks.min.js',
-                  'bower_components/angular-input-masks/angular-input-masks.br.min.js'
+                  'bower_components/angular-input-masks/angular-input-masks.br.min.js',
+                  'bower_components/angular-checklist-model/checklist-model.js'
               ])
             .pipe(concat('vendor.min.js')),
 

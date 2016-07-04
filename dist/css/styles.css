@@ -41,6 +41,22 @@
 
 #geo {
   margin: 0; }
+  #geo .accordion-group.row {
+    margin: 0px;
+    padding: 10px;
+    border-bottom: 1px solid #efefef; }
+  #geo a.accordion-toggle {
+    text-decoration: none; }
+  #geo .filtros {
+    position: absolute;
+    height: calc(100% - 70px);
+    width: 440px;
+    background: white;
+    z-index: 100;
+    transform: translateX(-440px);
+    transition: 1s cubic-bezier(0.25, 0.1, 0, 1.05) all; }
+  #geo .filtros.active {
+    transform: translateX(0px); }
   #geo a.thumbnail.relacionado {
     margin-bottom: 0px;
     max-height: 110px;
